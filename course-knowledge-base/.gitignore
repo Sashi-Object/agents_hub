@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+chroma_db/
+course_materials/
+.env
