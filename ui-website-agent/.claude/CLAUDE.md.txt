@@ -1,0 +1,17 @@
+# Project Overview
+- App: Artistic Personal Website (Next.js App Router, TypeScript, Tailwind CSS)
+
+## Commands
+- Dev Server: `npm run dev`
+- Build: `npm run build`
+
+## Guidelines & Rules Reference
+- Follow all design and accessibility standards specified in `.claude/rules/ui-teachings.md`.
+- When adding component libraries, look for configuration notes inside `.claude/rules/`.
+- In the final stages of completing the component, double check that it passes design and accessibility standards from `.claude/rules/ui-teachings.md`.
+
+# Documentation References
+- Rewind_ui (For UI components): https://rewind-ui.dev/
+- Ant Design (For more design principles, more components, and animations): https://ant.design/ 
+- Hero_ui: https://heroui.com/
+- Motion (For more modern effects): https://motion.dev/

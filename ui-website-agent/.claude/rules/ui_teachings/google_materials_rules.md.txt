@@ -1,0 +1,51 @@
+# Material Design: Text Legibility & Accessibility Standards
+
+Color plays a vital role in text legibility and user accessibility[cite: 1]. 
+
+---
+
+## 1. Legibility Standards & Accessibility
+* **Accessibility Goal:** Ensure diverse users can successfully navigate, understand, and use your user interface[cite: 1].
+* **WCAG 2.0 Level AA Compliance:** 
+  * Normal text requires a minimum color contrast ratio of **4.5:1** against its background[cite: 1].
+  * Large text requires a minimum ratio of **3:1**[cite: 1].
+
+---
+
+## 2. Text Backgrounds
+
+### Text on Colored Backgrounds
+* **Theme Matching:** Use black text on light backgrounds, and white text on dark backgrounds[cite: 1]. If supporting both light and dark themes, verify contrast across each theme[cite: 1].
+* **Using Text Opacity:** Instead of opaque grey text on colored surfaces, use transparent black or white layers to preserve legibility and pull in background hues[cite: 1].
+
+### Opacity Levels for Dark Text on Light Backgrounds (e.g., #000000 on #FFFFFF)
+* **High-emphasis text:** 87% opacity[cite: 1]
+* **Medium-emphasis text and hint text:** 60% opacity[cite: 1]
+* **Disabled text:** 38% opacity[cite: 1]
+
+### Colored Text and Backgrounds
+* Colored text should be used sparingly for headlines, buttons, and links to draw selective attention[cite: 1].
+* **Best Practice:** Large headlines and short text snippets are ideal for colored text[cite: 1]. Avoid long colored body copy as it decreases readability[cite: 1].
+
+---
+
+## 3. Helper Text & Text Selection
+
+### Helper Text
+* Provides context about a field's input while meeting WCAG standards[cite: 1].
+* **Examples on light backgrounds:**
+  * **High emphasis helper:** `#000000` at 87% opacity[cite: 1]
+  * **Default color helper text:** `#000000` at 60% opacity[cite: 1]
+  * **Default error helper text:** `#B00020` at 100% opacity[cite: 1]
+
+### Selected Text
+* Text selection can leverage brand accent colors, provided the selected text remains legible against the selection color, and the selection color contrasts with the background[cite: 1].
+* Alternative treatments include outlines, motion, or checkmark icons[cite: 1].
+
+---
+
+## 4. Icons and Symbols
+While icons do not strictly need to meet WCAG text legibility standards, they should be high-visibility[cite: 1]. Dark icons (`#000000`) on light backgrounds (`#FFFFFF`) follow these recommended opacities[cite: 1]:
+* **Active icons:** 87% opacity[cite: 1]
+* **Inactive icons:** 60% opacity[cite: 1]
+* **Disabled icons:** 38% opacity[cite: 1]

@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Every text/surface pair below meets WCAG AA (4.5:1) in both
+ * themes; focus rings meet the 3:1 non-text minimum. --border is a decorative
+ * divider only — never use it as the sole boundary of an interactive control.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #18181b; /* zinc-900 — 17.7:1 on background */
+  --muted: #52525b; /* zinc-600 — 7.7:1 on background, 7.4:1 on surface */
+  --surface: #fafafa; /* sidebar */
+  --border: #e4e4e7;
+  --hover: rgb(24 24 27 / 0.06); /* state layer */
+  --pressed: rgb(24 24 27 / 0.1);
+  --accent: #1d4ed8; /* blue-700 — 6.2:1 on accent-soft */
+  --accent-soft: #eff6ff;
+  --focus: #2563eb; /* 5.2:1 vs background, 5.0:1 vs surface */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #09090b;
+    --foreground: #f4f4f5; /* 18.1:1 */
+    --muted: #a1a1aa; /* 7.8:1 */
+    --surface: #111113;
+    --border: #27272a;
+    --hover: rgb(244 244 245 / 0.07);
+    --pressed: rgb(244 244 245 / 0.12);
+    --accent: #93c5fd; /* blue-300 — 8.2:1 on accent-soft */
+    --accent-soft: #172554;
+    --focus: #60a5fa;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-hover: var(--hover);
+  --color-pressed: var(--pressed);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-focus: var(--focus);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Lock page scroll behind the open mobile drawer. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
