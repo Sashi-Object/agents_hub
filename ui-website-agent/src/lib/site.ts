@@ -8,7 +8,7 @@ export type NavItem = {
 };
 
 export const siteConfig = {
-  name: "Natalie Bonilla",
+  name: "Natalie",
   description:
     "A writer who combines words and variables. An intersection of technology and storytelling.",
   email: "nataliebonilla2@gmail.com",

@@ -42,12 +42,16 @@ export default function Home() {
       <Section id="about" title="About" intro="Who I am and what I love to make.">
         <div className="max-w-[65ch] space-y-4 text-base leading-relaxed text-foreground">
           <p>
-            Use this space to introduce the team: where you started, what you
-            focus on, and what makes your approach different.
+            There are two passions that have my heart, technology and storytelling. 
+            I believe they are two halves of the same coin that accomplish the same result,
+            creating experiences for people to enjoy. But also they both keep each other in balance,
+            we have technology to share our creative endeavors and we have stories for human connection.
           </p>
           <p>
-            Keep paragraphs short so the section is easy to scan. Two or three
-            focused paragraphs usually say more than one long block.
+            Building an experience relies on storytelling, for example:
+            I'm a computer science student who finds joy in solving engaging puzzles. But I want my
+            projects to leave an impact, that's where my creativity comes into play. My writing helps me 
+            be a better software developer, and my tech fluency inspires me to write stories from the heart.
           </p>
         </div>
       </Section>
