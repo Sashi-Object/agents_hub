@@ -48,12 +48,21 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/*
+ * One-page navigation: sidebar links glide to their section instead of
+ * jumping. scroll-padding keeps section titles clear of the 56px sticky
+ * header. Users who ask for reduced motion get the instant jump.
+ */
+html {
+  scroll-padding-top: 4.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-}
-
-/* Lock page scroll behind the open mobile drawer. */
-html:has(dialog[open]) {
-  overflow: hidden;
 }

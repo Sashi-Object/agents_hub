@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { MobileNav } from "@/components/nav/mobile-nav";
-import { Sidebar } from "@/components/nav/sidebar";
+import { SiteNav } from "@/components/nav/site-nav";
+import { SiteFooter } from "@/components/site-footer";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -24,6 +24,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Smooth scrolling applies to in-page section links; Next.js turns it off
+      // during route changes so navigating between pages stays instant.
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full font-sans text-base leading-relaxed">
@@ -33,19 +36,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <div className="flex min-h-dvh">
-          <Sidebar />
-          <div className="flex min-w-0 flex-1 flex-col">
-            <MobileNav />
-            <main
-              id="main"
-              tabIndex={-1}
-              className="flex-1 px-4 py-8 focus:outline-none sm:px-8 md:py-12 lg:px-12"
-            >
-              {children}
-            </main>
-          </div>
-        </div>
+        <SiteNav />
+        <main
+          id="main"
+          tabIndex={-1}
+          className="px-4 py-8 focus:outline-none sm:px-8 md:py-12 lg:px-12"
+        >
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );

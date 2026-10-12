@@ -1,30 +1,67 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { isActive, navItems } from "@/lib/site";
+import { useEffect, useState } from "react";
+import { navItems, sectionHref } from "@/lib/site";
 import { NavIconGlyph } from "./icons";
 
-type NavListProps = {
-  pathname: string | null;
-  onNavigate?: () => void;
-};
-
 /**
- * Pure list of links. Rendered with `pathname={null}` as the Suspense
- * fallback so the nav is never missing, even while the pathname resolves.
+ * Scrollspy: returns the id of the section currently being read, so the
+ * sidebar shows where you are on the page (visibility of system status).
+ * A section counts as current once its top passes ~30% down the viewport.
  */
-export function NavList({ pathname, onNavigate }: NavListProps) {
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.3;
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      // A short last section may never reach the line; at the very bottom it's current.
+      if (atBottom && document.getElementById(ids[ids.length - 1])) {
+        current = ids[ids.length - 1];
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ids]);
+
+  return active;
+}
+
+const sectionIds = navItems.map((item) => item.id);
+
+export function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+  const activeId = useActiveSection(sectionIds);
+
   return (
     <ul className="flex flex-col gap-1">
       {navItems.map((item) => {
-        const active = isActive(item.href, pathname);
+        const active = item.id === activeId;
         return (
-          <li key={item.href}>
+          <li key={item.id}>
             <Link
-              href={item.href}
+              href={sectionHref(item.id)}
               onClick={onNavigate}
-              aria-current={active ? "page" : undefined}
+              aria-current={active ? "location" : undefined}
               className={[
                 // 44px min target height; state-layer hover/press feedback.
                 "group relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-base",
@@ -43,7 +80,10 @@ export function NavList({ pathname, onNavigate }: NavListProps) {
                   active ? "opacity-100" : "opacity-0",
                 ].join(" ")}
               />
-              <NavIconGlyph icon={item.icon} className="size-5 shrink-0" />
+              <NavIconGlyph
+                icon={item.icon}
+                className="size-5 shrink-0 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+              />
               {item.label}
             </Link>
           </li>
@@ -51,9 +91,4 @@ export function NavList({ pathname, onNavigate }: NavListProps) {
       })}
     </ul>
   );
-}
-
-export function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
-  const pathname = usePathname();
-  return <NavList pathname={pathname} onNavigate={onNavigate} />;
 }
