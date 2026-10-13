@@ -1,12 +1,29 @@
+import Image, { type StaticImageData } from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { Section } from "@/components/section";
 import { HOME_SECTION_ID, siteConfig } from "@/lib/site";
 
+// Project images ─────────────────────────────────────────────────────────
+import ragEngineImage from "@/assets/project_1_.png";
+
+// Project type for new additional projects
+type Project = {
+  name: string;
+  summary: string;
+  /** Optional. `alt` describes the image for screen readers; use "" only if purely decorative. */
+  image?: { src: StaticImageData; alt: string };
+};
+
 // Placeholder content — replace with real copy. Section order here must match
 // `navItems` in src/lib/site.ts so the sidebar reads top to bottom.
-const projects = [
-  { name: "Project one", summary: "A short sentence about what this project does and why it matters." },
-  { name: "Project two", summary: "A short sentence about what this project does and why it matters." },
+const projects: Project[] = [
+  { name: "CLI Course Knowledge Base & RAG Engine", 
+    summary: "A lightweight command-line RAG tool that ingests academic texts, stores vector embeddings locally via ChromaDB, and automatically exports markdown diles to render dynamic knowledge graphs in Obsidian.",
+    image: {src: ragEngineImage, alt: "A graph that is connecting dots that represent generated Markdown files and topics that are interconnected."},
+  },
+  { name: "Project two", 
+    summary: "A short sentence about what this project does and why it matters." },
+
   { name: "Project three", summary: "A short sentence about what this project does and why it matters." },
 ];
 
@@ -30,10 +47,22 @@ export default function Home() {
           {projects.map((project) => (
             <li
               key={project.name}
-              className="rounded-xl border border-border bg-surface p-6"
+              className="overflow-hidden rounded-xl border border-border bg-surface"
             >
-              <h3 className="text-lg font-semibold text-foreground">{project.name}</h3>
-              <p className="mt-2 text-base text-muted">{project.summary}</p>
+              {project.image && (
+                <Image
+                  src={project.image.src}
+                  alt={project.image.alt}
+                  placeholder="blur"
+                  // Card widths at the grid's 1 / 2 / 3-column breakpoints.
+                  sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+                  className="aspect-video w-full border-b border-border object-cover"
+                />
+              )}
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-foreground">{project.name}</h3>
+                <p className="mt-2 text-base text-muted">{project.summary}</p>
+              </div>
             </li>
           ))}
         </ul>
