@@ -25,7 +25,7 @@ export default function Home() {
         />
       </section>
 
-      <Section id="projects" title="Projects" intro="A look at what we're building.">
+      <Section id="projects" title="Projects" intro="A look at what I'm building.">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <li
