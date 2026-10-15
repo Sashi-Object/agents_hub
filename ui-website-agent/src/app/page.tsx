@@ -1,5 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
-import { PageHeader } from "@/components/page-header";
+import { Hero } from "@/components/hero/hero";
 import { Section } from "@/components/section";
 import { HOME_SECTION_ID, siteConfig } from "@/lib/site";
 
@@ -33,13 +33,11 @@ export default function Home() {
       <section
         id={HOME_SECTION_ID}
         aria-label="Welcome"
-        className="flex min-h-[60dvh] items-center justify-center py-16"
+        className="relative isolate flex min-h-[60dvh] items-center justify-center py-16"
       >
-        <PageHeader
-          align="center"
-          title={siteConfig.name}
-          description={siteConfig.description}
-        />
+        {/* Decorative teal + coral glow behind the name (see .hero-glow). */}
+        <div aria-hidden="true" className="hero-glow pointer-events-none absolute inset-0 -z-10" />
+        <Hero name={siteConfig.name} tagline={siteConfig.description} />
       </section>
 
       <Section id="projects" title="Projects" intro="A look at what I'm building.">

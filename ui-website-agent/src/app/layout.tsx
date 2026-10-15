@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { SiteNav } from "@/components/nav/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { siteConfig } from "@/lib/site";
@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Literary serif for expressive accents (e.g. the hero tagline).
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "opsz"],
+});
+
 export const metadata: Metadata = {
   title: { default: siteConfig.name, template: `%s · ${siteConfig.name}` },
   description: siteConfig.description,
@@ -27,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // Smooth scrolling applies to in-page section links; Next.js turns it off
       // during route changes so navigating between pages stays instant.
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full font-sans text-base leading-relaxed">
         <a

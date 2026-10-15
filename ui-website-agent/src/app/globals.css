@@ -16,6 +16,14 @@
   --accent: #1d4ed8; /* blue-700 — 6.2:1 on accent-soft */
   --accent-soft: #eff6ff;
   --focus: #2563eb; /* 5.2:1 vs background, 5.0:1 vs surface */
+  /* Palette C "Two Halves": teal = technology, coral = storytelling. */
+  --teal: #0f766e; /* 5.5:1 on background */
+  --coral: #be123c; /* 6.3:1 on background */
+  /* Hero glow strength. Tuned so text stays AA even where both glows overlap
+     at full strength (name 11.5:1, tagline 5.0:1). */
+  --glow-teal: rgb(45 212 191 / 0.3);
+  --glow-coral: rgb(251 113 133 / 0.26);
+  --hero-tagline: #52525b; /* same as --muted */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +38,13 @@
     --accent: #93c5fd; /* blue-300 — 8.2:1 on accent-soft */
     --accent-soft: #172554;
     --focus: #60a5fa;
+    --teal: #2dd4bf; /* 10.7:1 */
+    --coral: #fb7185; /* 7.4:1 */
+    /* Worst-case overlap: name 8.0:1, tagline 6.0:1 (thanks to the lighter
+       tagline below; the regular muted gray would drop to 3.5:1 here). */
+    --glow-teal: rgb(45 212 191 / 0.26);
+    --glow-coral: rgb(251 113 133 / 0.24);
+    --hero-tagline: #d4d4d8; /* zinc-300 */
   }
 }
 
@@ -44,8 +59,12 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-focus: var(--focus);
+  --color-teal: var(--teal);
+  --color-coral: var(--coral);
+  --color-hero-tagline: var(--hero-tagline);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces);
 }
 
 /*
@@ -59,6 +78,57 @@ html {
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Hero name: each letter settles from thin to bold on load, staggered via an
+ * inline animation-delay. `backwards` fill holds the thin start weight during
+ * the delay, then hands control back to --w, which the cursor effect sets.
+ */
+@keyframes hero-settle {
+  from {
+    font-weight: var(--w-start);
+  }
+}
+.hero-glyph {
+  font-weight: var(--w, var(--w-rest));
+  transition: font-weight 200ms ease-out;
+  animation: hero-settle var(--settle-ms) cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* Ink underline: wipes in left to right, like a pen drawing it. */
+@keyframes ink-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+.ink-underline {
+  animation: ink-draw 700ms cubic-bezier(0.65, 0, 0.35, 1) backwards;
+}
+
+/*
+ * Hero glow: teal (technology) and coral (storytelling) light pools that meet
+ * behind the name. Pure gradients, no blur filter, so it costs nothing to paint.
+ */
+.hero-glow {
+  background:
+    radial-gradient(ellipse 32% 42% at 40% 42%, var(--glow-teal), transparent 70%),
+    radial-gradient(ellipse 32% 42% at 60% 42%, var(--glow-coral), transparent 70%);
+}
+/* High-contrast / forced-colors mode: drop decoration, keep text crisp. */
+@media (forced-colors: active) {
+  .hero-glow {
+    display: none;
+  }
+}
+
+/* Reduced motion: show the finished state immediately, no hover swell. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-glyph,
+  .ink-underline {
+    animation: none;
+    transition: none;
   }
 }
 
